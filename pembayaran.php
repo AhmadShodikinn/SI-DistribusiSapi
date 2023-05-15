@@ -154,17 +154,37 @@
                                 </div> -->
                                 <div class="form-group col-md-6">
                                     <label for="name">Nama Petugas</label>
-                                    <input id="id_pembayaran" name="id_petugas" type="text" class="form-control" value="<?= $_GET['id_petugas_transaksi']?>" disabled>
+                                    <select id="id_petugas_transaksi" name="id_petugas_transaksi" class="form-control" readonly>
+                                    <?php 
+                                        $data=mysqli_query($conn, "SELECT * FROM Petugas");
+                                        $selectedPetugas = $_GET['id_petugas_transaksi'];
+                                        while($dataPetugas = mysqli_fetch_array($data)) { 
+                                            if($selectedPetugas == $dataPetugas['id_petugas']) {
+                                                ?>
+                                                <option selected='selected' value="<?= $dataPetugas['id_petugas']?>"><?= $dataPetugas['nama'] ?></option>";
+                                                <?php 
+                                            } 
+                                            
+                                        ?>
+                                        <?php 
+                                        };
+                                        ?>     
+                                </select>   
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="name">nama peternak</label> 
-                                    <select id="id_peternak" name="id_peternak" class="form-control" aria-readonly="">
+                                    <select id="id_peternak" name="id_peternak" class="form-control" readonly>
                                     <?php 
                                         $data=mysqli_query($conn, "SELECT * FROM Peternak");
+                                        $selectedPeternak = $_GET['id_peternak'];
                                         while($dataPeternak = mysqli_fetch_array($data)) { 
+                                            if($selectedPeternak == $dataPeternak['id_peternak']) {
+                                                ?>
+                                                <option selected='selected' value="<?= $dataPeternak['id_peternak']?>"><?= $dataPeternak['nama_pemilik'] ?></option>";
+                                                <?php 
+                                            } 
+                                            
                                         ?>
-                                            <option value="<?= $dataPeternak['id_peternak']?> <?php if('id_peternak'==$_GET['id_peternak']) echo 'selected="selected"'; ?>"> <?= $dataPeternak['nama_pemilik'] ?></option>
-    
                                         <?php 
                                         };
                                     ?>
@@ -177,7 +197,7 @@
                                 </div>
                                 <div class="form-group col-md-1">
                                     <label for="periode">periode</label>
-                                    <select id="periode" name="periode" type="number" class="form-control" disable>
+                                    <select id="periode" name="periode" type="number" class="form-control" read-only>
                                         <option value="1" <?php if($_GET['periode']=="1") echo 'selected="selected"'; ?>>1</option>
                                         <option value="2" <?php if($_GET['periode']=="2") echo 'selected="selected"'; ?>>2</option>
                                         <option value="3" <?php if($_GET['periode']=="3") echo 'selected="selected"'; ?>>3</option>
