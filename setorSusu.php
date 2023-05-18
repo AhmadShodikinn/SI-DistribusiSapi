@@ -4,7 +4,7 @@
     ob_start();
     $id = $_SESSION['id_petugas'];
 
-    $redirect_path = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'] ;
+    $redirect_path = 'http://' . $_SERVER['SERVER_NAME'] .':'.$_SERVER['SERVER_PORT'] . $_SERVER['PHP_SELF'] ;
     if(isset($_POST['create'])) {
         // $id_setor = $conn->real_escape_string($_POST['id_setor']);
         $id_petugas_setor = $id;

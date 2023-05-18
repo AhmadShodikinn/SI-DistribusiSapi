@@ -9,7 +9,8 @@
     $id = $_SESSION['id_petugas'];
     ob_start();
 
-    $redirect_path = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'] ;
+    $redirect_path = 'http://' . $_SERVER['SERVER_NAME'] .':'.$_SERVER['SERVER_PORT'] . $_SERVER['PHP_SELF'] ;
+    // echo $redirect_path;
     if(isset($_POST['create'])) {
         // $id_pengumpulan_susu = $conn->real_escape_string($_POST['id_pengumpulan_susu']);
         $id_petugas_transaksi = $id;

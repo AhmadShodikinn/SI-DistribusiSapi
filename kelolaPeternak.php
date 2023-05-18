@@ -3,7 +3,7 @@
     include_once 'config.php';
     ob_start();
 
-    $redirect_path = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'] ;
+    $redirect_path = 'http://' . $_SERVER['SERVER_NAME'] .':'.$_SERVER['SERVER_PORT'] . $_SERVER['PHP_SELF'] ;
     if(isset($_POST['create'])) {
         $nama_pemilik = $conn->real_escape_string($_POST['nama_pemilik']);
         $id_peternak = $conn->real_escape_string($_POST['id_peternak']);
