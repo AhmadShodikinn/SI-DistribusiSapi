@@ -124,6 +124,12 @@ if (!isset($_SESSION['nama_roles'])) {
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="kelolamitra.php" aria-expanded="false">
                                     <i class="me-3 fa fa-truck" aria-hidden="true"></i><span class="hide-menu">Kelola Mitra</span></a>
                             </li>
+                            <div class="px-4 sidebar-heading">
+                                Lihat Laporan
+                            </div>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="Laporan.php" aria-expanded="false">
+                                    <i class="me-3 fa fa-chart-bar" aria-hidden="true"></i><span class="hide-menu">Cetak Laporan</span></a>
+                            </li>
                         <?php } ?>
 
                         <?php if ($_SESSION['nama_roles'] == 'Transaksi' || $_SESSION['nama_roles'] == 'Pencatatan' || $_SESSION['nama_roles'] == 'Setor') { ?>
