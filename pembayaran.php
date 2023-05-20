@@ -198,10 +198,16 @@ if (isset($_POST['delete'])) {
                         </div>
                         <div class="form-group col-md-1">
                             <label for="periode">periode</label>
-                            <select id="periode" name="periode" type="number" class="form-control" read-only>
-                                <option value="1" <?php if ($_GET['periode'] == "1") echo 'selected="selected"'; ?>>1</option>
-                                <option value="2" <?php if ($_GET['periode'] == "2") echo 'selected="selected"'; ?>>2</option>
-                                <option value="3" <?php if ($_GET['periode'] == "3") echo 'selected="selected"'; ?>>3</option>
+                            <select id="periode" name="periode" type="number" class="form-control" readonly>
+                            <?php 
+                                for ($i=1; $i <= 3; $i++) { 
+                                    if ($_GET['periode'] == $i) {
+                                        ?>
+                                            <option selected='selected' value="<?= $i ?>"><?= $i ?></option>";
+                                       <?php 
+                                    }
+                                }
+                            ?>
                             </select>
                         </div>
                         <!-- <div class="form-group col-md-4">
