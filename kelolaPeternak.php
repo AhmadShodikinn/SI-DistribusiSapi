@@ -5,8 +5,8 @@
 
     $redirect_path = 'http://' . $_SERVER['SERVER_NAME'] .':'.$_SERVER['SERVER_PORT'] . $_SERVER['PHP_SELF'] ;
     if(isset($_POST['create'])) {
+
         $nama_pemilik = $conn->real_escape_string($_POST['nama_pemilik']);
-        $id_peternak = $conn->real_escape_string($_POST['id_peternak']);
         $nama_peternakan = $conn->real_escape_string($_POST['nama_peternakan']);
         $no_hp = $conn->real_escape_string($_POST['no_hp']);
         $username = $conn->real_escape_string($_POST['username']);
@@ -25,11 +25,10 @@
     
     if (isset($_POST['update'])) {
         $nama_pemilik = $conn->real_escape_string($_POST['nama_pemilik']);
-        $id_peternak = $conn->real_escape_string($_POST['id_peternak']);
         $nama_peternakan = $conn->real_escape_string($_POST['nama_peternakan']);
-        $alamat = $conn->real_escape_string($_POST['alamat']);
         $no_hp = $conn->real_escape_string($_POST['no_hp']);
         $username = $conn->real_escape_string($_POST['username']);
+        $password = $conn->real_escape_string($_POST['password']);
         $norek = $conn->real_escape_string($_POST['norek']);
 
         $sql = "UPDATE peternak SET nama_pemilik = '$nama_pemilik', nama_peternakan = '$nama_peternakan',  no_hp = '$no_hp', username = '$username', password = '$password',  norek = '$norek' WHERE id_peternak = '$id_peternak'";
@@ -42,7 +41,7 @@
     }  
     
     if (isset($_POST['delete'])) {
-        $id_peternak = $conn->real_escape_string($_POST['delete']);
+        $id_petugas = $conn->real_escape_string($_POST['delete']);
         $sql = "DELETE FROM peternak WHERE id_peternak = '$id_peternak'";
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
@@ -120,6 +119,14 @@
                             <div class="form-group">
                                 <label for="no_hp">Nomor HP</label>
                                 <input id="no_hp" name="no_hp" type="text" class="form-control" value="<?= $_GET['no_hp']?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input id="username" name="username" type="text" class="form-control" value="<?= $_GET['username']?>" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input id="password" name="password" type="text" class="form-control" value="<?= $_GET['password']?>">
                             </div>
                             <div class="form-group">
                                 <label for="norek">Norek</label>
