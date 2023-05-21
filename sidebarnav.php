@@ -148,9 +148,12 @@ if (!isset($_SESSION['nama_roles'])) {
                             <div class="px-4 sidebar-heading">
                                 Menu Peternak
                             </div>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="me-3 far fa-clock fa-fw" aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.php" aria-expanded="false"><i class="me-3 far fa-clock fa-fw" aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="transaksiPeternak.php" aria-expanded="false">
                                     <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Lihat Transaksi</span></a>
+                            </li>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pembayaranPeternak.php" aria-expanded="false">
+                                    <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Lihat Pembayaran</span></a>
                             </li>
                         <?php } ?>
 
