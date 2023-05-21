@@ -24,6 +24,7 @@
     }  
     
     if (isset($_POST['update'])) {
+        $id_peternak = $conn->real_escape_string($_POST['update']);
         $nama_pemilik = $conn->real_escape_string($_POST['nama_pemilik']);
         $nama_peternakan = $conn->real_escape_string($_POST['nama_peternakan']);
         $no_hp = $conn->real_escape_string($_POST['no_hp']);
@@ -31,7 +32,7 @@
         $password = $conn->real_escape_string($_POST['password']);
         $norek = $conn->real_escape_string($_POST['norek']);
 
-        $sql = "UPDATE peternak SET nama_pemilik = '$nama_pemilik', nama_peternakan = '$nama_peternakan',  no_hp = '$no_hp', username = '$username', password = '$password',  norek = '$norek' WHERE id_peternak = '$id_peternak'";
+        $sql = "UPDATE peternak SET nama_pemilik = '$nama_pemilik', nama_peternakan = '$nama_peternakan',  no_hp = '$no_hp', password = '$password',  norek = '$norek' WHERE id_peternak = '$id_peternak'";
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
@@ -41,7 +42,7 @@
     }  
     
     if (isset($_POST['delete'])) {
-        $id_petugas = $conn->real_escape_string($_POST['delete']);
+        $id_peternak = $conn->real_escape_string($_POST['delete']);
         $sql = "DELETE FROM peternak WHERE id_peternak = '$id_peternak'";
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
@@ -87,7 +88,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input id="password" name="password" type="text" class="form-control">
+                                <input id="password" name="password" type="password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="no_hp">Nomor HP</label>
@@ -164,7 +165,7 @@
                                         <td><?= $data['norek'] ?></td>
                                         <td class="d-flex gap-3">
                                             <a class="btn bg-warning text-white" href="?edit= <?= $data['id_peternak']?>&nama_pemilik=<?= 
-                                            $data['nama_pemilik']?>&nama_peternakan=<?= $data['nama_peternakan']?>&no_hp=<?= $data['no_hp']?>&username=<?= 
+                                            $data['nama_pemilik']?>&nama_peternakan=<?= $data['nama_peternakan']?>&no_hp=<?= $data['no_hp']?>?>&username=<?= 
                                             $data['username']?>&password=<?=$data['password']?>&norek=<?= $data['norek']?>">Ubah</a>
 
                                             <form action="" method="post">
