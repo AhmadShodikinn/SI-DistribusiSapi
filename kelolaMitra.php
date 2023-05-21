@@ -3,13 +3,13 @@
     include_once 'config.php';
     ob_start();
 
+    
     $redirect_path = 'http://' . $_SERVER['SERVER_NAME'] .':'.$_SERVER['SERVER_PORT'] . $_SERVER['PHP_SELF'] ;
     if(isset($_POST['create'])) {
         $nama = $conn->real_escape_string($_POST['nama']);
-        $id_mitra = $conn->real_escape_string($_POST['id_mitra']);
         $alamat = $conn->real_escape_string($_POST['alamat']);
 
-        $sql = "INSERT INTO mitra (id_mitra, nama_mitra , alamat) VALUES ('$id_mitra', '$nama', '$alamat')";
+        $sql = "INSERT INTO mitra (nama_mitra , alamat) VALUES ('$nama', '$alamat')";
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
@@ -66,16 +66,12 @@
                     <?php if(isset($_GET['add'])): ?>
                         <form class="mt-2" action="" method="post">
                             <div class="form-group">
-                                <label for="id_mitra">ID Mitra</label>
-                                <input id="id_mitra" name="id_mitra" type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
                                 <label for="nama">Nama</label>
-                                <input id="nama" name="nama" type="text" class="form-control">
+                                <input id="nama" name="nama" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
-                                <input id="alamat" name="alamat" type="text" class="form-control">
+                                <input id="alamat" name="alamat" type="text" class="form-control" required>
                             </div>
                             <button type="submit" class="btn btn-block btn-success" name="create">Tambah</button>
                         </form>
@@ -126,7 +122,7 @@
                                         </td>
                                     </tr>
                                 <?php endwhile?>
-                            </tbody>
+                            </tbody> 
                         </table>
                     </div>
                     <?php endif?>
