@@ -1,5 +1,4 @@
 <?php 
-    $title = 'Petugas';
     include 'sidebarnav.php';
     include_once 'config.php';
     ob_start();
@@ -29,8 +28,6 @@
         $alamat = $conn->real_escape_string($_POST['alamat']);
         $username = $conn->real_escape_string($_POST['username']);
         $id_role = $conn->real_escape_string($_POST['id_role']);
-
-
 
         $sql = "UPDATE petugas SET nama = '$nama', no_hp = '$no_hp', alamat = '$alamat', username = '$username', id_role = '$id_role'  WHERE id_petugas = '$id_petugas'";
         $conn->query($sql) or die(mysqli_error($conn));
@@ -119,7 +116,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input id="username" name="no_hp" type="text" class="form-control" value="<?= $_GET['username']?>">
+                                <input id="username" name="username" type="text" class="form-control" value="<?= $_GET['username']?>">
                             </div>
                             <div class="form-group">
                                 <label for="id_role">Nama Role</label>
