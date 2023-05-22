@@ -1,4 +1,5 @@
 <?php 
+    $title = "pencatatan susu";
     include_once 'config.php';
     require 'sidebarnav.php';
 

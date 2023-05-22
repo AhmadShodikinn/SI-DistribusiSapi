@@ -1,4 +1,5 @@
 <?php
+$title = "Pembayaran Peternak";
 include 'sidebarnav.php';
 include_once 'config.php';
 

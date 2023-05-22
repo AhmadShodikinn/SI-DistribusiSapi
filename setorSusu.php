@@ -1,4 +1,5 @@
 <?php 
+    $title = "Setor Susu";
     include 'sidebarnav.php';
     include_once 'config.php';
     ob_start();

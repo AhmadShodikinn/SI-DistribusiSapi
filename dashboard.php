@@ -1,5 +1,6 @@
 <?php 
     // penting buat templating sidebar sama nav nya
+    $title = 'Dashboard';
     include 'sidebarnav.php'
 ?>     
         <!-- Page wrapper  -->

@@ -1,4 +1,5 @@
 <?php 
+    $title = "Laporan Pembayaran";
     include 'sidebarnav.php';
     include_once 'config.php';
     $id = $_SESSION['id_petugas'];
