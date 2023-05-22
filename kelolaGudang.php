@@ -1,5 +1,4 @@
 <?php 
-    $title = 'Gudang';
     include 'sidebarnav.php';
     include_once 'config.php';
     ob_start();
@@ -36,7 +35,7 @@
     }  
     
     if (isset($_POST['delete'])) {
-        $id_mitra = $conn->real_escape_string($_POST['delete']);
+        $id_gudang = $conn->real_escape_string($_POST['delete']);
         $sql = "DELETE FROM gudang WHERE id_gudang = '$id_gudang'";
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
