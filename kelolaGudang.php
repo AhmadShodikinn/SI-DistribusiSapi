@@ -36,9 +36,10 @@
     }  
     
     if (isset($_POST['delete'])) {
-        $id_mitra = $conn->real_escape_string($_POST['delete']);
+        $id_gudang = $conn->real_escape_string($_POST['delete']);
         $sql = "DELETE FROM gudang WHERE id_gudang = '$id_gudang'";
         $conn->query($sql) or die(mysqli_error($conn));
+        // echo $sql;
         ?>
         <script>
             window.location.assign("<?= $redirect_path?>")
@@ -132,7 +133,7 @@
                                             <a class="btn bg-warning text-white" href="?edit=<?= $data['id_gudang'] ?>&jumlah=<?= $data['jumlah']?>&kandungan_lemak=<?= $data['kandungan_lemak']?>&kandungan_protein=<?= $data['kandungan_protein']?>">Ubah</a>
 
                                             <form action="" method="post">
-                                                <button type="submit" class="btn bg-danger text-white" name="delete" value="<?= $data['id_gudang'] ?>">Hapus</button>
+                                                <button type="submit" class="swa-confirm btn bg-danger text-white" name="delete" value="<?= $data['id_gudang'] ?>">Hapus</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -154,4 +155,31 @@
     $(document).ready(function () {
     $('#example').DataTable();
 });
+
+$(".swa-confirm").click(function(e) {
+                if (!e.originalEvent.isTrusted)
+                return;
+
+            
+            e.preventDefault(); 
+
+            Swal.fire({
+                title: "Hapus Data?",
+                text:"Apakah anda ingin mengahapus data ini?",
+                type: "warning",
+                icon : 'warning',
+                showCancelButton: true,
+                confirmButtonColor: "#cc3f44",
+                confirmButtonText: "Hapus",
+                cancelButtonText: "Batal",
+                closeOnConfirm: true,
+                html: false
+            }).then(function(result) {
+                if (result.value) {
+                    e.target.click();
+                } else {
+                    return false;
+                }
+            })
+        });
 </script>

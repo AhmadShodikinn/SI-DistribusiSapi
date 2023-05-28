@@ -11,23 +11,7 @@ session_start();
         echo "<script>alert('LOGIN BERHASIL')</script>";
     }
     
-    if (isset($_POST['submit'])) {
-        $username = $_POST['username'];
-        $password = ($_POST['password']);
-        
-        $sql = "SELECT * FROM peternak JOIN roles ON peternak.id_roles = roles.id_role WHERE peternak.username = '$username' AND peternak.password = '$password'";
-        $result = mysqli_query($conn, $sql);
-        echo ($SQL);
-        if ($result->num_rows > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $_SESSION['id_peternak'] = $row['id_peternak'];
-            $_SESSION['nama_pemilik'] = $row['nama_pemilik'];
-            $_SESSION['nama_roles'] = $row['nama_roles'];
-            header("Location: ../dashboardPeternak.php");
-        } else {
-            echo "<script>alert('Username atau Password anda salah!')</script>";
-            }
-    }
+    
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +27,10 @@ session_start();
 
     <!-- Style -->
     <link rel="stylesheet" href="../assets/css/style.css">
+
+    <!-- sweetalert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 
     <title>SI-SAPI | LOGIN</title>
 </head>
@@ -92,6 +80,45 @@ session_start();
 
                 <button name="submit" class="btn btn-block btn-primary">MASUK</button>
                 </form>
+                <?php 
+                    if (isset($_POST['submit'])) {
+                        $username = $_POST['username'];
+                        $password = ($_POST['password']);
+                        
+                        $sql = "SELECT * FROM peternak JOIN roles ON peternak.id_roles = roles.id_role WHERE peternak.username = '$username' AND peternak.password = '$password'";
+                        $result = mysqli_query($conn, $sql);
+                        if ($result->num_rows > 0) {
+                            $row = mysqli_fetch_assoc($result);
+                            $_SESSION['id_peternak'] = $row['id_peternak'];
+                            $_SESSION['nama_pemilik'] = $row['nama_pemilik'];
+                            $_SESSION['nama_roles'] = $row['nama_roles'];
+                            
+                            echo "<script> 
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Login Berhasil',
+                                icon: 'success',
+                                heightAuto: false
+                                })
+                
+                            setTimeout(function(){
+                                window.location.href = '../dashboard.php';
+                            }, 2000);
+                            </script>";
+                
+                        } else {
+                            echo "<script> 
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Username atau Password Salah',
+                                icon: 'error',
+                                confirmButtonText: 'kembali',
+                                heightAuto: false
+                                })
+                            </script>";
+                        }
+                    }
+                ?>
                 </div>
             </div>
             </div>

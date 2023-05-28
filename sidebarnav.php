@@ -26,12 +26,14 @@ if (!isset($_SESSION['nama_roles'])) {
     <link href="assets/css/icons/font-awesome/css/brands.css" rel="stylesheet">
     <link href="assets/css/icons/font-awesome/css/solid.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/datatables.min.css" rel="stylesheet" />
-
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    
     <!-- Custom CSS -->
     <link href="assets/css/style.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 
 </head>
 

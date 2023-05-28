@@ -162,7 +162,7 @@
                                             <a class="btn btn-warning text-white" href="?edit=<?= $data['id_setor'] ?>&id_petugas_setor=<?= $data['id_petugas_setor']?>&id_mitra=<?= $data['id_mitra']?>&jumlah=<?= $data['jumlah']?>&date=<?= $data['date']?>">Ubah</a>
 
                                             <form action="" method="post">
-                                                <button type="submit" class="btn btn-danger text-white" name="delete" value="<?= $data['id_setor'] ?>">Hapus</button>
+                                                <button type="submit" class="swa-confirm btn btn-danger text-white" name="delete" value="<?= $data['id_setor'] ?>">Hapus</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -184,4 +184,31 @@
     $(document).ready(function () {
     $('#example').DataTable();
 });
+
+$(".swa-confirm").click(function(e) {
+                if (!e.originalEvent.isTrusted)
+                return;
+
+            
+            e.preventDefault(); 
+
+            Swal.fire({
+                title: "Hapus Data?",
+                text:"Apakah anda ingin mengahapus data ini?",
+                type: "warning",
+                icon : 'warning',
+                showCancelButton: true,
+                confirmButtonColor: "#cc3f44",
+                confirmButtonText: "Hapus",
+                cancelButtonText: "Batal",
+                closeOnConfirm: true,
+                html: false
+            }).then(function(result) {
+                if (result.value) {
+                    e.target.click();
+                } else {
+                    return false;
+                }
+            })
+        });
 </script>

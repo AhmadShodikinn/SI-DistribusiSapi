@@ -160,7 +160,7 @@
                                             <a class="btn bg-warning text-white" href="?edit=<?= $data['id_petugas'] ?>&nama=<?= $data['nama']?>&no_hp=<?= $data['no_hp']?>&alamat=<?= $data['alamat']?>&username=<?= $data['username']?>&id_role=<?= $data['id_role']?>">Ubah</a>
 
                                             <form action="" method="post">
-                                                <button type="submit" class="btn bg-danger text-white" name="delete" value="<?= $data['id_petugas'] ?>">Hapus</button>
+                                                <button type="submit" class="swa-confirm btn bg-danger text-white" name="delete" value="<?= $data['id_petugas'] ?>">Hapus</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -182,4 +182,32 @@
     $(document).ready(function () {
     $('#example').DataTable();
 });
+
+    $(".swa-confirm").click(function(e) {
+        if (!e.originalEvent.isTrusted)
+        return;
+
+    
+    e.preventDefault(); 
+
+    Swal.fire({
+        title: "Hapus Data?",
+        text:"Apakah anda ingin mengahapus data ini?",
+        type: "warning",
+        icon : 'warning',
+        showCancelButton: true,
+        confirmButtonColor: "#cc3f44",
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
+        closeOnConfirm: true,
+        html: false
+    }).then(function(result) {
+        if (result.value) {
+            e.target.click();
+        } else {
+            return false;
+        }
+    })
+});
+
 </script>

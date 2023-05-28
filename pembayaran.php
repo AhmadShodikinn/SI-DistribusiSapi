@@ -55,7 +55,6 @@ if (isset($_POST['update'])) {
 
 
 if (isset($_POST['delete'])) {
-    $id_pembayaran = $conn->real_escape_string($_POST['id_pembayaran']);
     $id_pembayaran = $conn->real_escape_string($_POST['delete']);
     $sql = "DELETE FROM pembayaran WHERE id_pembayaran = '$id_pembayaran'";
     $conn->query($sql) or die(mysqli_error($conn));
@@ -142,7 +141,7 @@ if (isset($_POST['delete'])) {
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-block btn-success" name="create">Tambah</button>
+                    <button type="submit" class="swa-confirm-payment btn btn-block btn-success" name="create">Tambah</button>
                 </form>
 
             <?php endif ?>
@@ -211,14 +210,6 @@ if (isset($_POST['delete'])) {
                             ?>
                             </select>
                         </div>
-                        <!-- <div class="form-group col-md-4">
-                                    <label for="date_start">tanggal awal</label>
-                                    <input id="date_start" name="date_start" type="date" class="form-control">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="date_end">tanggal akhir</label>
-                                    <input id="date_end" name="date_end" type="date" class="form-control">
-                                </div> -->
                         <div class="form-group col-md-4">
                             <label for="sum_total">Total yang harus dibayarkan</label>
                             <input id="sum_total" name="sum_total" type="text" class="form-control" value="<?= $_GET['harga_total'] ?>" disabled>
@@ -259,7 +250,7 @@ if (isset($_POST['delete'])) {
                                         <a class="btn bg-warning text-white" href="?edit=<?= $data['id_pembayaran'] ?>&id_petugas_transaksi=<?= $data['id_petugas_transaksi'] ?>&id_peternak=<?= $data['id_peternak'] ?>&tanggal_pembayaran=<?= $data['tanggal_pembayaran'] ?>&periode=<?= $data['periode'] ?>&harga_total=<?= $data['harga_total'] ?>">Ubah</a>
 
                                         <form action="" method="post">
-                                            <button type="submit" class="btn bg-danger text-white" name="delete" value="<?= $data['id_pembayaran'] ?>">Hapus</button>
+                                            <button type="submit" class="swa-confirm btn bg-danger text-white" name="delete" value="<?= $data['id_pembayaran'] ?>">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -328,6 +319,68 @@ if (isset($_POST['delete'])) {
             })
         })
     })
+
+
+    $(".swa-confirm").click(function(e) {
+                if (!e.originalEvent.isTrusted)
+                return;
+
+            
+            e.preventDefault(); 
+
+            Swal.fire({
+                title: "Hapus Data?",
+                text:"Apakah anda ingin mengahapus data ini?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#cc3f44",
+                confirmButtonText: "Hapus",
+                cancelButtonText: "Batal",
+                closeOnConfirm: true,
+                html: false
+            }).then(function(result) {
+                if (result.value) {
+                    e.target.click();
+                } else {
+                    return false;
+                }
+            })
+        });
+    
+    $(".swa-confirm-payment").click(function(e) {
+            if (!e.originalEvent.isTrusted)
+            return;
+ 
+        
+        e.preventDefault(); 
+
+        Swal.fire({
+            title: "Anda Yakin?",
+            text:"Apakah anda ingin melakukan transaksi?",
+            type: "warning",
+            icon : "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#a5dc86",
+            confirmButtonText: "Bayar",
+            cancelButtonText: "Batal",
+            closeOnConfirm: true,
+            html: false
+        }).then(function(result) {
+            if (result.value) {
+                Swal.fire({
+                    title: "Sukses!",
+                    text:"Pembayaran berhasil tercatat",
+                    type: "success",
+                    icon : "success",
+                    })
+                setTimeout(function(){
+                    e.target.click();
+                }, 2000);
+            } else {
+                return false;
+            }
+        })
+    });
 </script>
 
 <!-- <script language="javascript">
