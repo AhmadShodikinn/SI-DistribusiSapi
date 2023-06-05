@@ -78,3 +78,52 @@
         </div>
 
         <?php require_once('footer.php') ?>
+
+
+
+    <script>
+        $(document).ready(() => {
+        $('#example').DataTable();
+
+        //logic set disable before insert first date
+        document.getElementById('date_end').disabled = true;
+        var dis = document.getElementById('date_start');
+        dis.onchange = () => {
+            if(dis.value == " " ){
+                document.getElementById('date_end').disabled = true;
+            }
+            else
+            document.getElementById('date_end').disabled = false;
+        }
+
+
+        //logic date
+        const month = new Date().getMonth();
+        const year = new Date().getFullYear();
+
+        const dateTrailing = (str) => str.toString().padStart(2,'0')
+
+        const init = () => {
+            $('#date_start').on('change', function() {
+                const val = $(this).val()
+                $('#date_end').attr({
+                    min: val
+                })
+            })
+
+            const min = val => {
+                const date = new Date(val)
+                const month = date.getMonth()
+                const year = date.getFullYear()
+                return `${year}-${dateTrailing(month + 1)}-10`
+            }
+            
+            // $('#date_start').attr({max})
+            $('#date_end').attr({min})
+        }
+
+        init()
+
+
+        })
+    </script>
