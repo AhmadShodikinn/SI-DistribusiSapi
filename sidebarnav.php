@@ -138,12 +138,22 @@ if (!isset($_SESSION['nama_roles'])) {
                             <div class="px-4 sidebar-heading">
                                 Menu Petugas
                             </div>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.php" aria-expanded="false"><i class="me-3 far fa-clock fa-fw" aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pencatatanSusu.php" aria-expanded="false"><i class="me-3 fa fa-filter" aria-hidden="true"></i><span class="hide-menu">Pencatatan Susu</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="kelolaGudang.php" aria-expanded="false"><i class="me-3 fa fa-home" aria-hidden="true"></i><span class="hide-menu">Gudang Susu</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pembayaran.php" aria-expanded="false"><i class="me-3 fa fa-credit-card-alt " aria-hidden="true"></i><span class="hide-menu">Pembayaran</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="setorSusu.php" aria-expanded="false"><i class="me-3 fa fa-truck " aria-hidden="true"></i><span class="hide-menu">Setor Susu</span></a></li>
-                            
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.php" aria-expanded="false">
+                                <i class="me-3 far fa-clock fa-fw" aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pencatatanSusu.php" aria-expanded="false">
+                                <i class="me-3 fa fa-filter" aria-hidden="true"></i><span class="hide-menu">Pencatatan Susu</span></a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="kelolaGudang.php" aria-expanded="false">
+                                <i class="me-3 fa fa-home" aria-hidden="true"></i><span class="hide-menu">Gudang Susu</span></a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pembayaran.php" aria-expanded="false">
+                                <i class="me-3 fa fa-credit-card-alt " aria-hidden="true"></i><span class="hide-menu">Pembayaran</span></a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="setorSusu.php" aria-expanded="false">
+                                <i class="me-3 fa fa-truck " aria-hidden="true"></i><span class="hide-menu">Setor Susu</span></a></li>
+                            <div class="px-4 sidebar-heading">
+                                Lihat Laporan
+                            </div>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cetakPencatatan.php" aria-expanded="false">
+                                    <i class="me-3 fa fa-chart-column" aria-hidden="true"></i><span class="hide-menu">Laporan Pencatatan</span></a>
+                            </li>
                         <?php } ?>
 
 
@@ -161,8 +171,11 @@ if (!isset($_SESSION['nama_roles'])) {
                             <div class="px-4 sidebar-heading">
                                 Lihat Laporan
                             </div>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cetakPencatatanPeternak.php" aria-expanded="false">
+                                    <i class="me-3 fa fa-chart-column" aria-hidden="true"></i><span class="hide-menu">Laporan Pencatatan</span></a>
+                            </li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="cetakPembayaranPeternak.php" aria-expanded="false">
-                                    <i class="me-3 fa fa-chart-bar" aria-hidden="true"></i><span class="hide-menu">Cetak Laporan</span></a>
+                                    <i class="me-3 fa fa-chart-bar" aria-hidden="true"></i><span class="hide-menu">Laporan Pembayaran</span></a>
                             </li>
                         <?php } ?>
 

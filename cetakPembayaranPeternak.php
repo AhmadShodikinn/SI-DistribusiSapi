@@ -10,7 +10,7 @@ $id = $_SESSION['id_peternak'];
         <div class="page-breadcrumb">
             <div class="row align-align-items-center">
                 <div class="align-self-center">
-                    <h3 class="page-title mb-0 p-0">Laporan Pembayaran</h3s>
+                    <h3 class="page-title mb-0 p-0">Laporan Pembayaran</h3>
                 </div>
                 <div class="container mt-4 d-flex  gap-2">
                     <div class="d-flex gap-3 w-100">

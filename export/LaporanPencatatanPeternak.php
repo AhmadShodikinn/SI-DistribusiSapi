@@ -9,10 +9,9 @@ session_start();
 $id = $_SESSION['id_peternak'];
 
 
-if (isset($_POST['print']) && isset($_POST['date_start']) && isset($_POST['date_end']) && isset($_POST['periode'])) {
+if (isset($_POST['print']) && isset($_POST['date_start']) && isset($_POST['date_end'])) {
     $date_start = $_POST['date_start'];
     $date_end = $_POST['date_end'];
-    $periode = $_POST['periode'];
 };
 
 ?>
@@ -77,34 +76,40 @@ if (isset($_POST['print']) && isset($_POST['date_start']) && isset($_POST['date_
         <table style="width:100%" border="1" cellspacing="0">
             <tr>
                 <th>No</th>
-                <th>Nama petugas</th>
-                <th>Nama peternak</th>
-                <th>tanggal pembayaran</th>
-                <th>Periode</th>
-                <th>Total yang dibayarkan</th>
+                <th>Nama Peternak</th>
+                <th>Nama Pencatatan</th>
+                <th>Tanggal Pengumpulan</th>
+                <th>Lemak</th>
+                <th>Protein</th>
+                <th>Harga Susu</th>
+                <th>Harga Total</th>
             </tr>
             <?php
-            if (isset($_POST['date_start']) && isset($_POST['date_end'])) {
-                $checkPeriode = isset($_POST['periode']) && $_POST['periode'] !== '' ? " AND periode = $periode" : '';
-                $sql = "SELECT * FROM pembayaran JOIN petugas ON pembayaran.id_petugas_transaksi = petugas.id_petugas JOIN peternak ON pembayaran.id_peternak = peternak.id_peternak WHERE pembayaran.id_peternak = '$id' tanggal_pembayaran BETWEEN '$date_start' and '$date_end' $checkPeriode";
+            if (isset($_POST['date_start']) && isset($_POST['date_end']) ) {
+                $date_start = $_POST['date_start'];
+                $date_end = $_POST['date_end'];
+                $sql = "SELECT * FROM pengumpulan_susu JOIN peternak ON pengumpulan_susu.id_peternak = peternak.id_peternak JOIN petugas ON pengumpulan_susu.id_petugas_pencatatan = petugas.id_petugas WHERE pengumpulan_susu.id_peternak='$_SESSION[id_peternak]' AND pengumpulan_susu.tanggal_pengumpulan BETWEEN '$date_start' AND '$date_end'";
                 $data = mysqli_query($conn, $sql);
             } else {
                 //default tanpa filter
-                $sql = "SELECT * FROM pembayaran JOIN petugas ON pembayaran.id_petugas_transaksi = petugas.id_petugas JOIN peternak ON pembayaran.id_peternak = peternak.id_peternak WHERE pembayaran.id_peternak = '$id'";
+                $sql = "SELECT * FROM pengumpulan_susu JOIN peternak ON pengumpulan_susu.id_peternak = peternak.id_peternak JOIN petugas ON pengumpulan_susu.id_petugas_pencatatan = petugas.id_petugas WHERE pengumpulan_susu.id_peternak='$_SESSION[id_peternak]' ";
+                die($sql);
                 $data = mysqli_query($conn, $sql);
             }
 
             $nomor = 1;
             
             ?>
-            <?php while ($dataPembayaran = mysqli_fetch_array($data)) : ?>
+            <?php while ($dataPencatatan = mysqli_fetch_array($data)) : ?>
                 <tr>
-                    <td><?= $nomor++ ?></td>
-                    <td><?= $dataPembayaran['nama'] ?></td>
-                    <td><?= $dataPembayaran['nama_pemilik'] ?></td>
-                    <td style="text-align:center"><?= $dataPembayaran['tanggal_pembayaran'] ?></td>
-                    <td style="text-align:center"><?= $dataPembayaran['periode'] ?></td>
-                    <td>Rp. <?= $dataPembayaran['harga_total'] ?></td>
+                <td><?= $nomor++ ?></td>
+                <td><?= $dataPencatatan['nama_pemilik'] ?></td>
+                <td><?= $dataPencatatan['nama'] ?></td>
+                <td><?= $dataPencatatan['tanggal_pengumpulan'] ?></td>
+                <td><?= $dataPencatatan['kandungan_lemak'] ?></td>
+                <td><?= $dataPencatatan['kandungan_protein'] ?></td>
+                <td><?= $dataPencatatan['jumlah_liter'] ?></td>
+                <td>Rp. <?= $dataPencatatan['harga_susu'] ?></td>
                 </tr>
             <?php endwhile ?>
         </table>
