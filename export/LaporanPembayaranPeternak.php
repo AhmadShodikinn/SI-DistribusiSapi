@@ -6,6 +6,9 @@ use Dompdf\Dompdf;
 ob_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/SI-DISTRIBUSISAPI/config.php';
 session_start();
+$id = $_SESSION['id_peternak'];
+
+
 if (isset($_POST['print']) && isset($_POST['date_start']) && isset($_POST['date_end']) && isset($_POST['periode'])) {
     $date_start = $_POST['date_start'];
     $date_end = $_POST['date_end'];
@@ -83,11 +86,11 @@ if (isset($_POST['print']) && isset($_POST['date_start']) && isset($_POST['date_
             <?php
             if (isset($_POST['date_start']) && isset($_POST['date_end'])) {
                 $checkPeriode = isset($_POST['periode']) && $_POST['periode'] !== '' ? " AND periode = $periode" : '';
-                $sql = "SELECT * FROM pembayaran JOIN petugas ON pembayaran.id_petugas_transaksi = petugas.id_petugas JOIN peternak ON pembayaran.id_peternak = peternak.id_peternak WHERE tanggal_pembayaran BETWEEN '$date_start' and '$date_end' $checkPeriode";
+                $sql = "SELECT * FROM pembayaran JOIN petugas ON pembayaran.id_petugas_transaksi = petugas.id_petugas JOIN peternak ON pembayaran.id_peternak = peternak.id_peternak WHERE pembayaran.id_peternak = '$id' tanggal_pembayaran BETWEEN '$date_start' and '$date_end' $checkPeriode";
                 $data = mysqli_query($conn, $sql);
             } else {
                 //default tanpa filter
-                $sql = "SELECT * FROM pembayaran JOIN petugas ON pembayaran.id_petugas_transaksi = petugas.id_petugas JOIN peternak ON pembayaran.id_peternak = peternak.id_peternak WHERE tanggal_pembayaran";
+                $sql = "SELECT * FROM pembayaran JOIN petugas ON pembayaran.id_petugas_transaksi = petugas.id_petugas JOIN peternak ON pembayaran.id_peternak = peternak.id_peternak WHERE pembayaran.id_peternak = '$id'";
                 $data = mysqli_query($conn, $sql);
             }
 
@@ -112,9 +115,9 @@ if (isset($_POST['print']) && isset($_POST['date_start']) && isset($_POST['date_
         <div class="details">
             <div class="identity">
                 <p>Malang, <?= date('d-m-Y') ?></p>
-                <p>Admin</p>
+                <p>Pternak</p>
             </div>
-            <p><?= $_SESSION['nama'] ?></p>
+            <p><?= $_SESSION['nama_pemilik'] ?></p>
         </div>
     </div>
 </body>

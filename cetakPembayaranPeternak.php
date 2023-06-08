@@ -2,7 +2,7 @@
 $title = "Laporan Pembayaran";
 include 'sidebarnav.php';
 include_once 'config.php';
-$id = $_SESSION['id_petugas'];
+$id = $_SESSION['id_peternak'];
 ?>
 
 <div class="page-wrapper">
@@ -10,12 +10,11 @@ $id = $_SESSION['id_petugas'];
         <div class="page-breadcrumb">
             <div class="row align-align-items-center">
                 <div class="align-self-center">
-                    <h3 class="page-title mb-0 p-0">Laporan Pembayaran Peternak</h3s>
+                    <h3 class="page-title mb-0 p-0">Laporan Pembayaran</h3s>
                 </div>
-
                 <div class="container mt-4 d-flex  gap-2">
                     <div class="d-flex gap-3 w-100">
-                        <form action="Laporan.php" method="GET" class="d-flex gap-2 w-100">
+                        <form action="cetakPembayaranPeternak.php" method="post" class="d-flex gap-2 w-100">
                             <div class="form-group">
                                 <label class="col-form-label">Periode Pembayaran</label>
                             </div>
@@ -37,22 +36,21 @@ $id = $_SESSION['id_petugas'];
                                 <button name="cari" class="btn btn-primary" type="submit">Cari</button>
                             </div>
                         </form>
-                        <form action="./export/LaporanPembayaran.php" method="post" class="d-flex align-items-start w-80 ">
-                            <?php if (isset($_GET['date_start']) || isset($_GET['date_end']) || isset($_GET['periode'])) : ?>
+                        <form action="./export/LaporanPembayaranPeternak.php" method="post" class="d-flex align-items-start w-80 ">
+                            <?php if (isset($_POST['date_start']) && isset($_POST['date_end']) && isset($_POST['periode'])) : ?>
+                                
                                 <div class="row">
                                     <div class="form-group col-md-2">
-                                        <input type="hidden" name="date_start" value="<?= $_GET['date_start'] ?>">
-                                        <input type="hidden" name="date_end" value="<?= $_GET['date_end'] ?>">
-                                        <input type="hidden" name="periode" value="<?= $_GET['periode'] ?>">
+                                        <input type="hidden" name="date_start" value="<?= $_POST['date_start'] ?>">
+                                        <input type="hidden" name="date_end" value="<?= $_POST['date_end'] ?>">
+                                        <input type="hidden" name="periode" value="<?= $_POST['periode'] ?>">
                                         <!-- <a href="./export/LaporanPembayaran.php">Print</a> -->
                                     </div>
                                 </div>
-                            <?php endif ?>
+                                <?php endif ?>
                             <button name="print" class="btn btn-primary" type="submit">Print</button>
                         </form>
                     </div>
-
-
                 </div>
 
 
@@ -71,12 +69,16 @@ $id = $_SESSION['id_petugas'];
                         </thead>
                         <tbody>
                             <?php
-                            if (isset($_GET['date_start']) && isset($_GET['date_end']) && isset($_GET['periode'])) {
-                                $sql = "SELECT * FROM pembayaran JOIN petugas ON pembayaran.id_petugas_transaksi = petugas.id_petugas JOIN peternak ON pembayaran.id_peternak = peternak.id_peternak WHERE tanggal_pembayaran BETWEEN '" . $_GET['date_start'] . "' and '" . $_GET['date_end'] . "' AND periode = '" . $_GET['periode'] . "'";
+                            if (isset($_POST['date_start']) && isset($_POST['date_end']) ) {
+                                $date_start = $_POST['date_start'];
+                                $date_end = $_POST['date_end'];
+                                $checkPeriode = isset($_POST['periode']) && $_POST['periode'] !== '' ? " AND periode = {$_POST['periode']}" : '';
+                                $sql = "SELECT * FROM pembayaran JOIN petugas ON pembayaran.id_petugas_transaksi = petugas.id_petugas JOIN peternak ON pembayaran.id_peternak = peternak.id_peternak WHERE pembayaran.id_peternak = '$id'  AND tanggal_pembayaran BETWEEN '$date_start' and '$date_end' $checkPeriode";
                                 $data = mysqli_query($conn, $sql);
                             } else {
                                 //default tanpa filter
-                                $data = mysqli_query($conn, "SELECT * FROM pembayaran JOIN petugas ON pembayaran.id_petugas_transaksi = petugas.id_petugas JOIN peternak ON pembayaran.id_peternak = peternak.id_peternak WHERE tanggal_pembayaran");
+                                $sql = "SELECT * FROM pembayaran JOIN petugas ON pembayaran.id_petugas_transaksi = petugas.id_petugas JOIN peternak ON pembayaran.id_peternak = peternak.id_peternak WHERE pembayaran.id_peternak = '$id' ";
+                                $data = mysqli_query($conn, $sql);
                             }
                             $_SESSION['dataPembayaran'] = $data;
                             $nomor = 1;
@@ -101,8 +103,6 @@ $id = $_SESSION['id_petugas'];
     </div>
 
     <?php require_once('footer.php') ?>
-
-
 
     <script>
         $(document).ready(() => {

@@ -88,6 +88,7 @@ if (isset($_SESSION['id_petugas'])) {
                             $row = mysqli_fetch_assoc($result);
                             $_SESSION['id_petugas'] = $row['id_petugas'];
                             $_SESSION['nama_roles'] = $row['nama_roles'];
+                            $_SESSION['nama'] = $row['nama'];
                             
                             echo "<script> 
                             Swal.fire({
