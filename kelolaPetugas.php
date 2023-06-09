@@ -146,10 +146,10 @@
                                 <select id="id_role" name="id_role" class="form-control">
                                 <?php 
                                     $data=mysqli_query($conn, "SELECT * FROM roles");
-                                    while($roles = mysqli_fetch_array($data)) { 
-                                    ?>
-                                        <option value="<?= $roles['id_role']?>"> <?= $roles['nama_roles'] ?></option>
-
+                                    $selectedRole = $_GET['id_role'];
+                                    while($roles = mysqli_fetch_array($data)) {
+                                        ?>
+                                        <option  value="<?= $roles['id_role']?>" <?php if($roles['id_role']==$selectedRole) echo 'selected="selected"'; ?>> <?= $roles['nama_roles'] ?></option>
                                     <?php 
                                     };
                                 ?>
