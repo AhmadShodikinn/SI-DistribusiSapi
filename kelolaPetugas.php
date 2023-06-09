@@ -1,4 +1,6 @@
 <?php 
+
+    $title = "Kelola Petugas";
     include 'sidebarnav.php';
     include_once 'config.php';
     ob_start();
@@ -10,9 +12,11 @@
         $no_hp = $conn->real_escape_string($_POST['no_hp']);
         $alamat = $conn->real_escape_string($_POST['alamat']);
         $username = $conn->real_escape_string($_POST['username']);
+        $password = $conn->real_escape_string($_POST['password']);
         $id_role = $conn->real_escape_string($_POST['id_role']);
 
-        $sql = "INSERT INTO petugas (id_petugas, nama , no_hp, alamat, username, id_role) VALUES ('$id_petugas', '$nama', '$no_hp', '$alamat', '$username', '$id_role')";
+        $sql = "INSERT INTO petugas (id_petugas, nama , no_hp, alamat, username,password, id_role) VALUES (NULL, '$nama', '$no_hp', '$alamat', '$username','$password', '$id_role')";
+        // die($sql);
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
@@ -27,9 +31,10 @@
         $no_hp = $conn->real_escape_string($_POST['no_hp']);
         $alamat = $conn->real_escape_string($_POST['alamat']);
         $username = $conn->real_escape_string($_POST['username']);
+        $password = $conn->real_escape_string($_POST['password']);
         $id_role = $conn->real_escape_string($_POST['id_role']);
 
-        $sql = "UPDATE petugas SET nama = '$nama', no_hp = '$no_hp', alamat = '$alamat', username = '$username', id_role = '$id_role'  WHERE id_petugas = '$id_petugas'";
+        $sql = "UPDATE petugas SET nama = '$nama', no_hp = '$no_hp', alamat = '$alamat', username = '$username', password = '$password',  id_role = '$id_role'  WHERE id_petugas = '$id_petugas'";
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
@@ -83,13 +88,29 @@
                                 <label for="alamat">Alamat</label>
                                 <input id="alamat" name="alamat" type="text" class="form-control">
                             </div>
-                            <div class="form-group">
-                                <label for="username">Username</label>
-                                <input id="username" name="username" type="text" class="form-control">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="username">Username</label>
+                                    <input id="username" name="username" type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="password">Password</label>
+                                    <input id="password" name="password" type="text" class="form-control">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="id_role">Nama Role</label>
-                                <input id="id_role" name="id_role" type="text" class="form-control">
+                                <select id="id_role" name="id_role" class="form-control">
+                                <?php 
+                                    $data=mysqli_query($conn, "SELECT * FROM roles");
+                                    while($roles = mysqli_fetch_array($data)) { 
+                                    ?>
+                                        <option value="<?= $roles['id_role']?>"> <?= $roles['nama_roles'] ?></option>
+
+                                    <?php 
+                                    };
+                                ?>
+                            </select>
                             </div>
 
                             <button type="submit" class="btn btn-block btn-success" name="create">Tambah</button>
@@ -98,10 +119,6 @@
 
                     <?php if(isset($_GET['edit'])): ?>
                         <form class="mt-2" action="" method="post">
-                            <div class="form-group">
-                                <label for="id_petugas">Id Petugas</label>
-                                <input id="id_petugas" name="id_petugas" type="text" class="form-control" value="<?= $_GET['edit']?>" disabled>
-                            </div>
                             <div class="form-group">
                                 <label for="nama">Nama</label>
                                 <input id="nama" name="nama" type="text" class="form-control" value="<?= $_GET['nama']?>">
@@ -114,13 +131,29 @@
                                 <label for="alamat">Alamat</label>
                                 <input id="alamat" name="alamat" type="text" class="form-control" value="<?= $_GET['alamat']?>">
                             </div>
-                            <div class="form-group">
-                                <label for="username">Username</label>
-                                <input id="username" name="username" type="text" class="form-control" value="<?= $_GET['username']?>">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input id="username" name="username" type="text" class="form-control" value="<?= $_GET['username']?>">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="password">Password</label>
+                                    <input id="password" name="password" type="text" class="form-control" value="<?= $_GET['password']?>">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="id_role">Nama Role</label>
-                                <input id="id_role" name="id_role" type="text" class="form-control" value="<?= $_GET['id_role']?>">
+                                <select id="id_role" name="id_role" class="form-control">
+                                <?php 
+                                    $data=mysqli_query($conn, "SELECT * FROM roles");
+                                    while($roles = mysqli_fetch_array($data)) { 
+                                    ?>
+                                        <option value="<?= $roles['id_role']?>"> <?= $roles['nama_roles'] ?></option>
+
+                                    <?php 
+                                    };
+                                ?>
+                            </select>
                             </div>
                             <button type="submit" class="btn btn-block btn-success" name="update" value="<?= $_GET['edit']?>">Ubah</button>
                         </form>
@@ -154,7 +187,7 @@
                                         <td><?= $data['username'] ?></td>
                                         <td><?= $data['nama_roles'] ?></td>
                                         <td class="d-flex gap-3">
-                                            <a class="btn bg-warning text-white" href="?edit=<?= $data['id_petugas'] ?>&nama=<?= $data['nama']?>&no_hp=<?= $data['no_hp']?>&alamat=<?= $data['alamat']?>&username=<?= $data['username']?>&id_role=<?= $data['id_role']?>">Ubah</a>
+                                            <a class="btn bg-warning text-white" href="?edit=<?= $data['id_petugas'] ?>&nama=<?= $data['nama']?>&no_hp=<?= $data['no_hp']?>&alamat=<?= $data['alamat']?>&username=<?= $data['username']?>&password=<?= $data['password']?>&id_role=<?= $data['id_role']?>">Ubah</a>
 
                                             <form action="" method="post">
                                                 <button type="submit" class="swa-confirm btn bg-danger text-white" name="delete" value="<?= $data['id_petugas'] ?>">Hapus</button>
