@@ -17,7 +17,16 @@
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Tambah Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }  
@@ -33,7 +42,16 @@
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Edit Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }  
@@ -44,7 +62,16 @@
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Hapus Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }
@@ -95,11 +122,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="jumlah">Jumlah Liter</label>
-                                <input id="jumlah" name="jumlah" type="text" class="form-control">
+                                <input id="jumlah" name="jumlah" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="date">Date</label>
-                                <input id="date" name="date" type="date" class="form-control">
+                                <input id="date" name="date" type="date" class="form-control"required>
                             </div>
                             <button type="submit" class="btn btn-block btn-success" name="create">Tambah</button>
                         </form>
@@ -108,24 +135,42 @@
                     <?php if(isset($_GET['edit'])): ?>
                         <form class="mt-2" action="" method="post">
                             <div class="form-group">
-                                <label for="id_setor">ID Setor</label>
-                                <input id="id_setor" name="id_setor" type="text" class="form-control" value="<?= $_GET['edit']?>" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="id_petugas_setor">ID_Petugas_Setor</label>
-                                <input id="id_petugas_setor" name="id_petugas_setor" type="text" class="form-control" value="<?= $_GET['id_petugas_setor']?>">
+                                <label for="id_petugas_setor">Nama Petugas</label>
+                                <select id="id_petugas_setor" name="id_petugas_setor" class="form-control">
+                                <?php 
+                                    $data=mysqli_query($conn, "SELECT * FROM Petugas");
+                                    $selectedPetugas = $_GET['id_petugas_setor'];
+                                    while($dataPetugas = mysqli_fetch_array($data)) { 
+                                    ?>
+                                        <option value="<?= $dataPetugas['id_petugas']?>" <?php if($dataPetugas['id_petugas']== $selectedPetugas) echo 'selected="selected"'; ?>> <?= $dataPetugas['nama'] ?></option>
+
+                                    <?php 
+                                    };
+                                ?>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="id_mitra">ID_Mitra</label>
-                                <input id="id_mitra" name="id_mitra" type="text" class="form-control" value="<?= $_GET['id_mitra']?>">
+                                <select id="id_mitra" name="id_mitra" class="form-control">
+                                <?php 
+                                    $data=mysqli_query($conn, "SELECT * FROM Mitra");
+                                    $selectedMitra = $_GET['id_mitra'];
+                                    while($dataMitra = mysqli_fetch_array($data)) { 
+                                    ?>
+                                        <option value="<?= $dataMitra['id_mitra']?>" <?php if($dataMitra['id_mitra']==$selectedMitra) echo 'selected="selected"'; ?>> <?= $dataMitra['nama_mitra'] ?></option>
+
+                                    <?php 
+                                    };
+                                ?>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="jumlah">Jumlah</label>
-                                <input id="jumlah" name="jumlah" type="text" class="form-control" value="<?= $_GET['jumlah']?>">
+                                <input id="jumlah" name="jumlah" type="text" class="form-control" value="<?= $_GET['jumlah']?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="date">Date</label>
-                                <input id="date" name="date" type="text" class="form-control" value="<?= $_GET['date']?>">
+                                <input id="date" name="date" type="date" class="form-control" value="<?= $_GET['date']?>" required>
                             </div>
                             <button type="submit" class="btn btn-block btn-success" name="update" value="<?= $_GET['edit']?>">Ubah</button>
                         </form>

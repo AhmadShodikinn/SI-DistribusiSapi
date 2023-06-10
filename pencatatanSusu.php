@@ -20,15 +20,24 @@
         $protein = $conn->real_escape_string($_POST['protein']);
         $tLiter = $conn->real_escape_string($_POST['total_liter']);
         $hLiter = $conn->real_escape_string($_POST['harga_liter']);
-        $hTotal = ($tLiter * $hLiter);
+        $hTotal = ((int)$tLiter * (int)$hLiter);
         // $datetime = $conn->real_escape_string($_POST['datetime']);
 
         $sql = "INSERT INTO pengumpulan_susu (id_pengumpulan_susu, id_peternak, id_petugas_pencatatan, tanggal_pengumpulan, kandungan_lemak, kandungan_protein, jumlah_liter, harga_susu, harga_total) VALUES (NULL, '$id_peternak', '$id_petugas','$tanggal', '$lemak', '$protein', '$tLiter', '$hLiter', '$hTotal')";
+        die($sql);
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            alert("Data berhasil ditambahkan");
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Tambah Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }  
@@ -40,7 +49,16 @@
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Delete Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }
@@ -101,17 +119,17 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="inputCity">Kandungan Lemak</label>
-                                <input type="text" class="form-control" id="lemak" name="lemak" placeholder="Lemak">
+                                <input type="text" class="form-control" id="lemak" name="lemak" placeholder="Lemak" required>
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="inputCity">Kandungan Protein</label>
-                                <input type="text" class="form-control" id="protein" name="protein" placeholder="Protein">
+                                <input type="text" class="form-control" id="protein" name="protein" placeholder="Protein" required>
                             </div>
                         </div>  
                         <div class="form-row">
                             <div class="form-group col-md-2">
                                 <label for="inputCity">Total Liter</label>
-                                <input type="number" class="form-control" id="total_liter" name="total_liter" placeholder="Total Liter">
+                                <input type="number" class="form-control" id="total_liter" name="total_liter" placeholder="Total Liter" required>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="inputCity">Harga per-Liter</label>

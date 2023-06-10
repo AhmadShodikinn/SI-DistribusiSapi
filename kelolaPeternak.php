@@ -1,5 +1,5 @@
 <?php 
-    $title = "Peternak";
+    $title = "Kelola Peternak";
     include 'sidebarnav.php';
     include_once 'config.php';
     ob_start();
@@ -15,11 +15,20 @@
         $norek = $conn->real_escape_string($_POST['norek']);
         $role = 5;
 
-        $sql = "INSERT INTO peternak (id_peternak, nama_pemilik , nama_peternakan, no_hp, username, password, norek, id_roles) VALUES ('$id_peternak', '$nama_pemilik', '$nama_peternakan', '$no_hp', '$username', '$password', '$norek', '$role')";
+        $sql = "INSERT INTO peternak (id_peternak, nama_pemilik , nama_peternakan, no_hp, username, password, norek, id_roles) VALUES (NULL, '$nama_pemilik', '$nama_peternakan', '$no_hp', '$username', '$password', '$norek', '$role')";
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Tambah Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }  
@@ -33,11 +42,20 @@
         $password = $conn->real_escape_string($_POST['password']);
         $norek = $conn->real_escape_string($_POST['norek']);
 
-        $sql = "UPDATE peternak SET nama_pemilik = '$nama_pemilik', nama_peternakan = '$nama_peternakan',  no_hp = '$no_hp', password = '$password',  norek = '$norek' WHERE id_peternak = '$id_peternak'";
+        $sql = "UPDATE peternak SET nama_pemilik = '$nama_pemilik', nama_peternakan = '$nama_peternakan',  no_hp = '$no_hp', username = '$username',  password = '$password',  norek = '$norek' WHERE id_peternak = '$id_peternak'";
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Edit Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }  
@@ -48,7 +66,16 @@
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Hapus Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }
@@ -77,27 +104,27 @@
                         <form class="mt-2" action="" method="post">
                             <div class="form-group">
                                 <label for="nama_pemilik">Nama Pemilik</label>
-                                <input id="nama_pemilik" name="nama_pemilik" type="text" class="form-control">
+                                <input id="nama_pemilik" name="nama_pemilik" type="text" class="form-control" required  >
                             </div>
                             <div class="form-group">
                                 <label for="nama_peternakan">Nama Peternakan</label>
-                                <input id="nama_peternakan" name="nama_peternakan" type="text" class="form-control">
+                                <input id="nama_peternakan" name="nama_peternakan" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input id="username" name="username" type="text" class="form-control">
+                                <input id="username" name="username" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input id="password" name="password" type="password" class="form-control">
+                                <input id="password" name="password" type="password" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="no_hp">Nomor HP</label>
-                                <input id="no_hp" name="no_hp" type="text" class="form-control">
+                                <input id="no_hp" name="no_hp" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="norek">Norek</label>
-                                <input id="norek" name="norek" type="text" class="form-control">
+                                <input id="norek" name="norek" type="text" class="form-control" required>
                             </div>
                             <button type="submit" class="btn btn-block btn-success" name="create">Tambah</button>
                         </form>
@@ -106,29 +133,25 @@
 
                     <?php if(isset($_GET['edit'])): ?>
                         <form class="mt-2" action="" method="post">
-                        <div class="form-group">
-                                <label for="id_peternak">ID Peternak</label>
-                                <input id="id_peternak" name="id_peternak" type="text" class="form-control" value="<?= $_GET['edit']?>" disabled> 
-                            </div>
                             <div class="form-group">
                                 <label for="nama_pemilik">Nama Pemilik</label>
-                                <input id="nama_pemilik" name="nama_pemilik" type="text" class="form-control" value="<?= $_GET['nama_pemilik']?>">
+                                <input id="nama_pemilik" name="nama_pemilik" type="text" class="form-control" value="<?= $_GET['nama_pemilik']?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="nama_peternakan">Nama Peternakan</label>
-                                <input id="nama_peternakan" name="nama_peternakan" type="text" class="form-control" value="<?= $_GET['nama_peternakan']?>">
+                                <input id="nama_peternakan" name="nama_peternakan" type="text" class="form-control" value="<?= $_GET['nama_peternakan']?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="no_hp">Nomor HP</label>
-                                <input id="no_hp" name="no_hp" type="text" class="form-control" value="<?= $_GET['no_hp']?>">
+                                <input id="no_hp" name="no_hp" type="text" class="form-control" value="<?= $_GET['no_hp']?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input id="username" name="username" type="text" class="form-control" value="<?= $_GET['username']?>" disabled>
+                                <input id="username" name="username" type="text" class="form-control" value="<?= $_GET['username']?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input id="password" name="password" type="text" class="form-control" value="<?= $_GET['password']?>">
+                                <input id="password" name="password" type="text" class="form-control" value="<?= $_GET['password']?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="norek">Norek</label>
@@ -165,9 +188,9 @@
                                         <td><?= $data['password'] ?></td>
                                         <td><?= $data['norek'] ?></td>
                                         <td class="d-flex gap-3">
-                                            <a class="btn bg-warning text-white" href="?edit= <?= $data['id_peternak']?>&nama_pemilik=<?= 
-                                            $data['nama_pemilik']?>&nama_peternakan=<?= $data['nama_peternakan']?>&no_hp=<?= $data['no_hp']?>?>&username=<?= 
-                                            $data['username']?>&password=<?=$data['password']?>&norek=<?= $data['norek']?>">Ubah</a>
+                                            <a class="btn bg-warning text-white" href="?edit= <?= $data['id_peternak']?> &nama_pemilik= <?= 
+                                            $data['nama_pemilik']?> &nama_peternakan= <?= $data['nama_peternakan']?> &no_hp= <?= $data['no_hp']?> &username= <?= 
+                                            $data['username']?> &password=<?=$data['password']?> &norek=<?= $data['norek']?>">Ubah</a>
 
                                             <form action="" method="post">
                                                 <button type="submit" class="swa-confirm btn bg-danger text-white" name="delete" value="<?= $data['id_peternak'] ?>">Hapus</button>

@@ -1,5 +1,7 @@
-<?php 
+<?php
+    $title = "Kelola Gudang"; 
     include 'sidebarnav.php';
+
     include_once 'config.php';
     ob_start();
 
@@ -14,7 +16,16 @@
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Tambah Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }  
@@ -29,7 +40,16 @@
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Edit Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }  
@@ -41,7 +61,16 @@
         // echo $sql;
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Hapus Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }
@@ -71,16 +100,16 @@
                         <form class="mt-2" action="" method="post">
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label for="jumlah">Jumlah</label>
-                                    <input id="jumlah" name="jumlah" type="text" class="form-control">
+                                    <label for="jumlah">Jumlah (liter)</label>
+                                    <input id="jumlah" name="jumlah" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="kandungan_lemak">Kandungan Lemak</label>
-                                    <input id="kandungan_lemak" name="kandungan_lemak" type="text" class="form-control">
+                                    <label for="kandungan_lemak">Kandungan Lemak (angka)</label>
+                                    <input id="kandungan_lemak" name="kandungan_lemak" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="kandungan_protein">Kandungan Protein</label>
-                                    <input id="kandungan_protein" name="kandungan_protein" type="text" class="form-control">
+                                    <label for="kandungan_protein">Kandungan Protein (angka)</label>
+                                    <input id="kandungan_protein" name="kandungan_protein" type="text" class="form-control" required>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-block btn-success" name="create">Tambah</button>
@@ -91,16 +120,16 @@
                         <form class="mt-2" action="" method="post">
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label for="jumlah">Jumlah</label>
-                                    <input id="jumlah" name="jumlah" type="text" class="form-control" value="<?= $_GET['jumlah']?>">
+                                    <label for="jumlah">Jumlah (liter)</label>
+                                    <input id="jumlah" name="jumlah" type="text" class="form-control" value="<?= $_GET['jumlah']?>" required> 
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="kandungan_lemak">Kandungan Lemak</label>
-                                    <input id="kandungan_lemak" name="kandungan_lemak" type="text" class="form-control" value="<?= $_GET['kandungan_lemak']?>">
+                                    <label for="kandungan_lemak">Kandungan Lemak (angka)</label>
+                                    <input id="kandungan_lemak" name="kandungan_lemak" type="text" class="form-control" value="<?= $_GET['kandungan_lemak']?>" required>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="kandungan_protein">Kandungan Protein</label>
-                                    <input id="kandungan_protein" name="kandungan_protein" type="text" class="form-control" value="<?= $_GET['kandungan_protein']?>">
+                                    <label for="kandungan_protein">Kandungan Protein (angka)</label>
+                                    <input id="kandungan_protein" name="kandungan_protein" type="text" class="form-control" value="<?= $_GET['kandungan_protein']?>" required>
                                 </div>
                                 <button type="submit" class="btn btn-block btn-success" name="update" value="<?= $_GET['edit']?>">Ubah</button>
                             </div>

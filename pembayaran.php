@@ -30,7 +30,16 @@ if (isset($_POST['create'])) {
     $conn->query($sql) or die(mysqli_error($conn));
 ?>
     <script>
-        window.location.assign("<?= $redirect_path ?>")
+        Swal.fire({
+            title: 'Success!',
+            text: 'Tambah Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
     </script>
 <?php
 }
@@ -44,11 +53,19 @@ if (isset($_POST['update'])) {
     $date_pay = $conn->real_escape_string($_POST['date_pay']);
 
     $sql = "UPDATE pembayaran SET id_petugas_transaksi = '$id_petugas_transaksi', id_peternak = '$id_peternak', tanggal_pembayaran = '$date_pay', periode = '$periode' WHERE id_pembayaran = '$id_pembayaran'";
-    echo $sql;
     $conn->query($sql) or die(mysqli_error($conn));
 ?>
     <script>
-        window.location.assign("<?= $redirect_path ?>")
+        Swal.fire({
+            title: 'Success!',
+            text: 'Edit Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
     </script>
 <?php
 }
@@ -60,7 +77,16 @@ if (isset($_POST['delete'])) {
     $conn->query($sql) or die(mysqli_error($conn));
 ?>
     <script>
-        window.location.assign("<?= $redirect_path ?>")
+        Swal.fire({
+            title: 'Success!',
+            text: 'Hapus Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
     </script>
 <?php
 }
@@ -127,11 +153,11 @@ if (isset($_POST['delete'])) {
                         <div class="form-group col-md-4">
                             <label for="date_start">tanggal awal</label>
                             <!-- <input id="date_picker" name="date_start" type="text" class="form-control"> -->
-                            <input id="date_start" name="date_start" type="date" class="form-control">
+                            <input id="date_start" name="date_start" type="date" class="form-control" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="date_end">tanggal akhir</label>
-                            <input id="date_end" name="date_end" type="date" class="form-control">
+                            <input id="date_end" name="date_end" type="date" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-row">
@@ -140,7 +166,7 @@ if (isset($_POST['delete'])) {
                             <input id="sum_total" name="sum_total" type="text" class="form-control" placeholder="Hasil pembayaran akan keluar setelah di submit" disabled>
                         </div>
                     </div>
-
+                    <h6>Nb : Wajib isi form tanggal awal & tanggal akhir!</h6>            
                     <button type="submit" class="swa-confirm-payment btn btn-block btn-success" name="create">Tambah</button>
                 </form>
 
@@ -194,7 +220,7 @@ if (isset($_POST['delete'])) {
 
                         <div class="form-group col-md-3">
                             <label for="name">Tanggal & Waktu</label>
-                            <input type="text" class="form-control" id="date_pay" name="date_pay" value=" <?= $_GET['tanggal_pembayaran'] ?>">
+                            <input type="text" class="form-control" id="date_pay" name="date_pay" value=" <?= $_GET['tanggal_pembayaran'] ?>" required>
                         </div>
                         <div class="form-group col-md-1">
                             <label for="periode">periode</label>
@@ -348,39 +374,30 @@ if (isset($_POST['delete'])) {
         });
     
     $(".swa-confirm-payment").click(function(e) {
-            if (!e.originalEvent.isTrusted)
-            return;
- 
-        
-        e.preventDefault(); 
+                if (!e.originalEvent.isTrusted)
+                return;
 
-        Swal.fire({
-            title: "Anda Yakin?",
-            text:"Apakah anda ingin melakukan transaksi?",
-            type: "warning",
-            icon : "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#a5dc86",
-            confirmButtonText: "Bayar",
-            cancelButtonText: "Batal",
-            closeOnConfirm: true,
-            html: false
-        }).then(function(result) {
-            if (result.value) {
-                Swal.fire({
-                    title: "Sukses!",
-                    text:"Pembayaran berhasil tercatat",
-                    type: "success",
-                    icon : "success",
-                    })
-                setTimeout(function(){
+            
+            e.preventDefault(); 
+
+            Swal.fire({
+                title: "Data Sudah Benar?",
+                text:"Apakah anda ingin Melakukan pembayaran?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#cc3f44",
+                confirmButtonText: "Tambah",
+                cancelButtonText: "Batal",
+                closeOnConfirm: true,
+                html: false
+            }).then(function(result) {
+                if (result.value) {
                     e.target.click();
-                }, 2000);
-            } else {
-                return false;
-            }
-        })
-    });
+                } else {
+                    return false;
+                }
+            })
+        });
 </script>
 
 <!-- <script language="javascript">

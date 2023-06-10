@@ -20,7 +20,16 @@
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Tambah Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }  
@@ -38,7 +47,16 @@
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Edit Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }  
@@ -49,7 +67,16 @@
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Hapus Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }
@@ -78,24 +105,24 @@
                         <form class="mt-2" action="" method="post">
                             <div class="form-group">
                                 <label for="nama">Nama</label>
-                                <input id="nama" name="nama" type="text" class="form-control">
+                                <input id="nama" name="nama" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="no_hp">No Hp</label>
-                                <input id="no_hp" name="no_hp" type="text" class="form-control">
+                                <input id="no_hp" name="no_hp" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
-                                <input id="alamat" name="alamat" type="text" class="form-control">
+                                <input id="alamat" name="alamat" type="text" class="form-control" required>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="username">Username</label>
-                                    <input id="username" name="username" type="text" class="form-control">
+                                    <input id="username" name="username" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="password">Password</label>
-                                    <input id="password" name="password" type="text" class="form-control">
+                                    <input id="password" name="password" type="text" class="form-control" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -121,24 +148,24 @@
                         <form class="mt-2" action="" method="post">
                             <div class="form-group">
                                 <label for="nama">Nama</label>
-                                <input id="nama" name="nama" type="text" class="form-control" value="<?= $_GET['nama']?>">
+                                <input id="nama" name="nama" type="text" class="form-control" value="<?= $_GET['nama']?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="no_hp">No Hp</label>
-                                <input id="no_hp" name="no_hp" type="text" class="form-control" value="<?= $_GET['no_hp']?>">
+                                <input id="no_hp" name="no_hp" type="text" class="form-control" value="<?= $_GET['no_hp']?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
-                                <input id="alamat" name="alamat" type="text" class="form-control" value="<?= $_GET['alamat']?>">
+                                <input id="alamat" name="alamat" type="text" class="form-control" value="<?= $_GET['alamat']?>" required>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="username">Username</label>
-                                    <input id="username" name="username" type="text" class="form-control" value="<?= $_GET['username']?>">
+                                    <input id="username" name="username" type="text" class="form-control" value="<?= $_GET['username']?>" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="password">Password</label>
-                                    <input id="password" name="password" type="text" class="form-control" value="<?= $_GET['password']?>">
+                                    <input id="password" name="password" type="text" class="form-control" value="<?= $_GET['password']?>" required>
                                 </div>
                             </div>
                             <div class="form-group">

@@ -14,7 +14,16 @@
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Tambah Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }  
@@ -28,7 +37,16 @@
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Edit Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }  
@@ -39,7 +57,16 @@
         $conn->query($sql) or die(mysqli_error($conn));
         ?>
         <script>
-            window.location.assign("<?= $redirect_path?>")
+            Swal.fire({
+            title: 'Success!',
+            text: 'Hapus Data Berhasil',
+            icon: 'success',
+            heightAuto: false
+            })
+
+            setTimeout(() => {
+                window.location.assign("<?= $redirect_path?>")
+            }, 2000);
         </script>
         <?php
     }
@@ -81,16 +108,12 @@
                     <?php if(isset($_GET['edit'])): ?>
                         <form class="mt-2" action="" method="post">
                             <div class="form-group">
-                                <label for="id_mitra">ID Mitra</label>
-                                <input id="id_mitra" name="id_mitra" type="text" class="form-control" value="<?= $_GET['edit']?>" disabled>
-                            </div>
-                            <div class="form-group">
                                 <label for="nama">Nama</label>
-                                <input id="nama" name="nama" type="text" class="form-control" value="<?= $_GET['nama_mitra']?>">
+                                <input id="nama" name="nama" type="text" class="form-control" value="<?= $_GET['nama_mitra']?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
-                                <input id="alamat" name="alamat" type="text" class="form-control" value="<?= $_GET['alamat']?>">
+                                <input id="alamat" name="alamat" type="text" class="form-control" value="<?= $_GET['alamat']?>" required>
                             </div>
                             <button type="submit" class="btn btn-block btn-success" name="update" value="<?= $_GET['edit']?>">Ubah</button>
                         </form>
