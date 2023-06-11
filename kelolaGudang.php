@@ -63,7 +63,7 @@
             <script>
                 Swal.fire({
                 title: 'Error!',
-                text: 'Hapus Data Gagal',
+                text: 'Data sedang digunakan dihalaman lain!',
                 icon: 'error',
                 heightAuto: false
                 })
