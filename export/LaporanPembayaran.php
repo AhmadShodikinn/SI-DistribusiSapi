@@ -1,7 +1,4 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/SI-DISTRIBUSISAPI/vendor/dompdf/autoload.inc.php';
-
-use Dompdf\Dompdf;
 
 ob_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/SI-DISTRIBUSISAPI/config.php';
