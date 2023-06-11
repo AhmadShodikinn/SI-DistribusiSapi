@@ -56,23 +56,39 @@
     
     if (isset($_POST['delete'])) {
         $id_gudang = $conn->real_escape_string($_POST['delete']);
-        $sql = "DELETE FROM gudang WHERE id_gudang = '$id_gudang'";
-        $conn->query($sql) or die(mysqli_error($conn));
-        // echo $sql;
-        ?>
-        <script>
-            Swal.fire({
-            title: 'Success!',
-            text: 'Hapus Data Berhasil',
-            icon: 'success',
-            heightAuto: false
-            })
+        $deleteQuery = mysqli_query($conn, "DELETE FROM gudang WHERE id_gudang = '$id_gudang'");
 
-            setTimeout(() => {
-                window.location.assign("<?= $redirect_path?>")
-            }, 2000);
-        </script>
-        <?php
+        if (!$deleteQuery){
+            ?>
+            <script>
+                Swal.fire({
+                title: 'Error!',
+                text: 'Hapus Data Gagal',
+                icon: 'error',
+                heightAuto: false
+                })
+
+                setTimeout(() => {
+                    window.location.assign("<?= $redirect_path?>")
+                }, 2000);
+            </script>
+            <?php
+        } else {
+            ?>
+            <script>
+                Swal.fire({
+                title: 'Success!',
+                text: 'Hapus Data Berhasil',
+                icon: 'success',
+                heightAuto: false
+                })
+
+                setTimeout(() => {
+                    window.location.assign("<?= $redirect_path?>")
+                }, 2000);
+            </script>
+            <?php
+        }
     }
 ?>
 

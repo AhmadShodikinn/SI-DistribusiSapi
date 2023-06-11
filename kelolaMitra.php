@@ -53,8 +53,40 @@
     
     if (isset($_POST['delete'])) {
         $id_mitra = $conn->real_escape_string($_POST['delete']);
-        $sql = "DELETE FROM mitra WHERE id_mitra = '$id_mitra'";
-        $conn->query($sql) or die(mysqli_error($conn));
+        $deleteQuery = mysqli_query($conn, "DELETE FROM mitra WHERE id_mitra = '$id_mitra'");
+
+        if (!$deleteQuery){
+            ?>
+            <script>
+                Swal.fire({
+                title: 'Error!',
+                text: 'Hapus Data Gagal',
+                icon: 'error',
+                heightAuto: false
+                })
+
+                setTimeout(() => {
+                    window.location.assign("<?= $redirect_path?>")
+                }, 2000);
+            </script>
+            <?php
+        } else {
+            ?>
+            <script>
+                Swal.fire({
+                title: 'Success!',
+                text: 'Hapus Data Berhasil',
+                icon: 'success',
+                heightAuto: false
+                })
+
+                setTimeout(() => {
+                    window.location.assign("<?= $redirect_path?>")
+                }, 2000);
+            </script>
+            <?php
+        }
+
         ?>
         <script>
             Swal.fire({
