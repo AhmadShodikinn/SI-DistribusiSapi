@@ -89,7 +89,6 @@ if (isset($_POST['print']) && isset($_POST['date_start']) && isset($_POST['date_
             } else {
                 //default tanpa filter
                 $sql = "SELECT * FROM pengumpulan_susu JOIN peternak ON pengumpulan_susu.id_peternak = peternak.id_peternak JOIN petugas ON pengumpulan_susu.id_petugas_pencatatan = petugas.id_petugas WHERE pengumpulan_susu.id_peternak='$_SESSION[id_peternak]' ";
-                die($sql);
                 $data = mysqli_query($conn, $sql);
             }
 
